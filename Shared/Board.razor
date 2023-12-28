@@ -1,15 +1,12 @@
 @inject ConnectFour.Shared.GameState State
 <HeadContent>
-    <style>
-        :root {
-            --board-bg: yellow;
-            /** the color of the board **/
-            --player1: blue;
-            /** Player 1's piece color **/
-            --player2: red;
-            /** Player 2's piece color **/
-        }
-    </style>
+ <style>
+  :root {
+   --board-bg: @ColorTranslator.ToHtml(BoardColor);
+   --player1: @ColorTranslator.ToHtml(Player1Color);
+   --player2: @ColorTranslator.ToHtml(Player2Color);
+  }
+ </style>
 </HeadContent>
 <nav>
     <span title="Click to play a piece" @onclick="() => PlayPiece(0)">🔽</span>
@@ -36,6 +33,18 @@
 </div>
 
 @code {
+
+    [Parameter()]
+    public Color BoardColor { get; set; }
+    = ColorTranslator.FromHtml("yellow");
+
+    [Parameter()]
+    public Color Player1Color { get; set; }
+    = ColorTranslator.FromHtml("red");
+
+    [Parameter()]
+    public Color Player2Color { get; set; }
+    = ColorTranslator.FromHtml("blue");
     private string[] Pieces = new string[42];
 
     private string WinnerMessage = string.Empty;
